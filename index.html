@@ -108,7 +108,11 @@
     </div>
   </dialog>
 
-  <script src="items.js"></script>
-  <script src="app.js"></script>
+  <!-- Always load the newest items list (GitHub lets browsers keep old copies for ~10 minutes) -->
+  <script>
+    var v = Date.now();
+    document.write('<script src="items.js?v=' + v + '"><\/script>');
+    document.write('<script src="app.js?v=' + v + '"><\/script>');
+  </script>
 </body>
 </html>
