@@ -205,4 +205,14 @@ window.ITEMS = [
     startPrice: "",
     sold: false,
   },
+   {
+    id: "street",
+    title: "Street",
+    model: "Street",
+    description: "",
+    image: "images/street.jpg",
+    forSale: false,
+    startPrice: "",
+    sold: false,
+  },
 ];
