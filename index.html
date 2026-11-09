@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>שוקי ז״ל — העולם שבנה</title>
+  <meta name="description" content="אתר לזכרו של שוקי ולזכר יצירות הלגו שבנה.">
+  <meta property="og:title" content="שוקי ז״ל — העולם שבנה">
+  <meta property="og:description" content="לבנה אחר לבנה. אתר לזכרו של שוקי ולזכר יצירות הלגו שבנה.">
+  <meta property="og:image" content="images/shuki.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect y='8' width='32' height='20' rx='3' fill='%23c8102e'/%3E%3Crect x='5' y='3' width='8' height='7' rx='2' fill='%23c8102e'/%3E%3Crect x='19' y='3' width='8' height='7' rx='2' fill='%23c8102e'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="studs" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#top">שוקי</a>
+    <nav>
+      <a href="#about">על שוקי</a>
+      <a href="#gallery">היצירות</a>
+      <a href="#gallery" data-jump-filter="sale">למכירה</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="about">
+      <figure class="portrait">
+        <img src="images/shuki.jpg" alt="שוקי, מחייך" width="500" height="600">
+      </figure>
+      <div class="intro">
+        <p class="eyebrow">לזכרו של</p>
+        <h1>שוקי <span>ז״ל</span></h1>
+        <p class="lead">איש טוב באמת, שאהב את החיים וחי אותם עד הסוף.</p>
+        <p>שוקי היה אופטימי תמיד, עם חיוך שלא ירד מהפנים. גם כשהמחלה ניסתה להכביד, הוא לא נתן לה להוריד אותו. היה לו לב טוב, והוא האמין בדרך פשוטה: חיה ותן לחיות.</p>
+        <p>הוא אהב מוזיקה — רוק ישן וטוב, מטאל והבי מטאל — והיה אוהד שרוף של ליברפול.</p>
+        <p>ובין לבין, בסבלנות ובאהבה, הוא בנה. לבנה אחר לבנה: ספינות, חלליות, מטוסים ומכונות ענק. באתר הזה אספנו את היצירות שלו, כדי לשמור על זכרו ועל מה שבנה בידיו. חלק מהן מוצעות למכירה, למי שרוצה לקחת הביתה חתיכה מהעולם של שוקי.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#gallery">לצפייה ביצירות</a>
+          <button class="btn btn-ghost" type="button" id="share-site">שיתוף האתר</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-section" id="gallery">
+      <div class="section-head">
+        <h2>היצירות של שוקי</h2>
+        <div class="filters" role="tablist" aria-label="סינון">
+          <button type="button" class="chip is-active" data-filter="all" role="tab" aria-selected="true">הכל <span data-count="all"></span></button>
+          <button type="button" class="chip" data-filter="sale" role="tab" aria-selected="false">למכירה <span data-count="sale"></span></button>
+        </div>
+      </div>
+      <p class="pickup-note" id="pickup-note" hidden></p>
+      <div class="grid" id="grid"></div>
+      <p class="empty" id="empty" hidden>אין כרגע פריטים למכירה.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="ynwa">You'll Never Walk Alone</p>
+    <p>האתר נבנה באהבה, לזכרו של שוקי.</p>
+  </footer>
+
+  <!-- Item details / offer dialog -->
+  <dialog class="modal" id="modal" aria-labelledby="m-title">
+    <button class="modal-close" type="button" data-close aria-label="סגירה">×</button>
+    <div class="modal-body">
+      <div class="modal-media"><img id="m-img" alt=""></div>
+      <div class="modal-info">
+        <div id="m-badge"></div>
+        <h3 id="m-title"></h3>
+        <p class="model" id="m-model" dir="ltr"></p>
+        <p class="desc" id="m-desc"></p>
+        <p class="price" id="m-price"></p>
+        <div class="modal-actions">
+          <button class="btn btn-primary" type="button" id="m-offer-btn">הגשת הצעה</button>
+          <button class="btn btn-ghost" type="button" id="m-share">שיתוף</button>
+        </div>
+
+        <form class="offer" id="offer-form" hidden novalidate>
+          <h4>הגשת הצעה</h4>
+          <p class="hint">ההצעות נשמרות אצל המשפחה בלבד ואינן מוצגות באתר. ניצור קשר עם המציעים.</p>
+          <label>שם מלא
+            <input name="name" type="text" autocomplete="name" required maxlength="80">
+          </label>
+          <label>טלפון
+            <input name="phone" type="tel" inputmode="tel" autocomplete="tel" required dir="ltr" placeholder="050-0000000" maxlength="20">
+          </label>
+          <label>מחיר מוצע (₪)
+            <input name="price" type="number" inputmode="numeric" min="1" step="1" required dir="ltr">
+          </label>
+          <label>תאריך איסוף מבוקש
+            <input name="pickupDate" type="date" required>
+          </label>
+          <label>הערות <span class="opt">(לא חובה)</span>
+            <textarea name="notes" rows="2" maxlength="500"></textarea>
+          </label>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="form-msg" id="form-msg" role="status"></p>
+          <button class="btn btn-primary btn-block" type="submit">שליחת ההצעה</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="items.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
