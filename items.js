@@ -135,14 +135,4 @@ window.ITEMS = [
     startPrice: "",
     sold: false,
   },
-   {
-    id: "helicopter2",
-    title: "מסוק החילוץ Airbus H175",
-    model: "LEGO Technic 42146",
-    description: "",
-    image: "images/helicopter.jpg",
-    forSale: true,
-    startPrice: "",
-    sold: true,
-  },
 ];
