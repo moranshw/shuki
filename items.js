@@ -83,7 +83,7 @@ window.ITEMS = [
     image: "images/pirate.jpg",
     forSale: true,
     startPrice: "",
-    sold: false,
+    sold: true,
   },
   {
     id: "titanic",
