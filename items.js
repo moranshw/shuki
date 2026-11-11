@@ -130,7 +130,7 @@ window.ITEMS = [
     description: "מעבורת החלל Enterprise על גבי מטוס בואינג 747.",
     image: "images/nasa.jpg",
     forSale: true,
-    startPrice: "",
+    startPrice: "800",
     sold: false,
   },
   {
@@ -141,7 +141,7 @@ window.ITEMS = [
     image: "images/manof.jpg",
     forSale: true,
     startPrice: "",
-    sold: false,
+    sold: true,
   },
   {
     id: "bucket-wheel",
