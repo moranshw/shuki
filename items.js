@@ -42,6 +42,9 @@ window.SITE_CONFIG = {
 
   // תאריך האיסוף האחרון שאפשר לבחור בטופס (שנה-חודש-יום), או "" ללא הגבלה
   pickupUntil: "2026-11-13",
+
+  // מספר הוואטסאפ לפניות על פריט (כפתור הוואטסאפ הירוק). אפשר להשאיר "" כדי להסתיר
+  whatsapp: "052-8665225",
 };
 
 window.ITEMS = [
@@ -351,6 +354,16 @@ window.ITEMS = [
     model: "LEGO Technic 42114",
     description: "",
     image: "images/volvo.jpeg",
+    forSale: true,
+    startPrice: "",
+    sold: false,
+  },
+  {
+    id: "amelia",
+    title: "ספינת הקיטור Amelia",
+    model: "LEGO Ideas 21356",
+    description: "ספינת נהר עם גלגל משוטים שמסתובב כשמזיזים אותה.",
+    image: "images/amelia.jpg",
     forSale: true,
     startPrice: "",
     sold: false,

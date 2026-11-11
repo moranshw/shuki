@@ -28,10 +28,20 @@
     })[c]);
   }
 
+  /* ---------- WhatsApp ---------- */
+  const WA_ICON = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.4-.2Z"/></svg>';
+  const waNumber = String(config.whatsapp || "").replace(/\D/g, "").replace(/^0/, "972");
+  function waLink(it) {
+    const url = location.href.split("#")[0] + "#" + encodeURIComponent(it.id);
+    const text = `שלום, אני מתעניין/ת בפריט "${it.title}"${it.model ? " (" + it.model + ")" : ""} מהאתר של שוקי:\n${url}`;
+    return `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
+  }
+
   /* ---------- Gallery ---------- */
   function render() {
     const list = filter === "sale" ? items.filter((it) => it.forSale) : items;
     grid.innerHTML = list.map((it) => `
+      <div class="card-wrap">
       <button class="card" type="button" data-id="${esc(it.id)}">
         <div class="card-media">
           <img src="${esc(it.image)}" alt="${esc(it.title)}" loading="lazy">
@@ -41,7 +51,9 @@
           <h3 class="card-title">${esc(it.title)}</h3>
           <p class="card-model" dir="ltr">${esc(it.model)}</p>
         </div>
-      </button>`).join("");
+      </button>
+      ${waNumber ? `<a class="wa-btn" href="${esc(waLink(it))}" target="_blank" rel="noopener" title="שליחת הודעת וואטסאפ על הפריט" aria-label="וואטסאפ על ${esc(it.title)}">${WA_ICON}</a>` : ""}
+      </div>`).join("");
     empty.hidden = list.length > 0;
     document.querySelector('[data-count="all"]').textContent = `(${items.length})`;
     document.querySelector('[data-count="sale"]').textContent = `(${items.filter((it) => it.forSale).length})`;
@@ -84,6 +96,9 @@
         ? `מחיר פתיחה: ₪${fmtPrice(it.startPrice)}` : "";
 
     offerBtn.hidden = !isAvailable(it);
+    const mWa = document.getElementById("m-wa");
+    mWa.hidden = !waNumber;
+    if (waNumber) mWa.href = waLink(it);
     form.hidden = true;
     form.reset();
     formMsg.textContent = "";
