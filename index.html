@@ -70,7 +70,12 @@
   <dialog class="modal" id="modal" aria-labelledby="m-title">
     <button class="modal-close" type="button" data-close aria-label="סגירה">×</button>
     <div class="modal-body">
-      <div class="modal-media"><img id="m-img" alt=""></div>
+      <div class="modal-media">
+        <img id="m-img" alt="">
+        <button class="nav nav-prev" type="button" id="m-prev" aria-label="התמונה הקודמת" hidden><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="nav nav-next" type="button" id="m-next" aria-label="התמונה הבאה" hidden><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="m-count" id="m-count" hidden></div>
+      </div>
       <div class="modal-info">
         <div id="m-badge"></div>
         <h3 id="m-title"></h3>

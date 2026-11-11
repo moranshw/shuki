@@ -37,6 +37,8 @@
     return `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
   }
 
+  const photosOf = (it) => [it.image].concat(Array.isArray(it.moreImages) ? it.moreImages : []).filter(Boolean);
+
   /* ---------- Gallery ---------- */
   function render() {
     const list = filter === "sale" ? items.filter((it) => it.forSale) : items;
@@ -46,6 +48,7 @@
         <div class="card-media">
           <img src="${esc(it.image)}" alt="${esc(it.title)}" loading="lazy">
           ${badgeFor(it)}
+          ${photosOf(it).length > 1 ? `<span class="photo-count">📷 ${photosOf(it).length}</span>` : ""}
         </div>
         <div class="card-body">
           <h3 class="card-title">${esc(it.title)}</h3>
@@ -84,9 +87,8 @@
     const it = items.find((x) => x.id === id);
     if (!it) return;
     current = it;
-    const img = document.getElementById("m-img");
-    img.src = it.image;
-    img.alt = it.title;
+    photos = photosOf(it);
+    showPhoto(0);
     document.getElementById("m-badge").innerHTML = badgeFor(it);
     document.getElementById("m-title").textContent = it.title;
     document.getElementById("m-model").textContent = it.model || "";
@@ -112,6 +114,39 @@
     modal.scrollTop = 0;
     if (pushHash) history.replaceState(null, "", "#" + encodeURIComponent(it.id));
   }
+
+  /* ---------- Photo viewer (next / back) ---------- */
+  const mImg = document.getElementById("m-img");
+  const mPrev = document.getElementById("m-prev");
+  const mNext = document.getElementById("m-next");
+  const mCount = document.getElementById("m-count");
+  let photos = [];
+  let photoIdx = 0;
+  function showPhoto(i) {
+    const n = photos.length;
+    photoIdx = (i + n) % n;
+    mImg.src = photos[photoIdx];
+    mImg.alt = current ? current.title + (n > 1 ? ` — תמונה ${photoIdx + 1} מתוך ${n}` : "") : "";
+    const multi = n > 1;
+    mPrev.hidden = mNext.hidden = mCount.hidden = !multi;
+    mCount.textContent = `${photoIdx + 1} / ${n}`;
+    if (multi) new Image().src = photos[(photoIdx + 1) % n]; // preload the next one
+  }
+  mPrev.addEventListener("click", () => showPhoto(photoIdx - 1));
+  mNext.addEventListener("click", () => showPhoto(photoIdx + 1));
+  modal.addEventListener("keydown", (e) => {
+    if (photos.length < 2 || /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    if (e.key === "ArrowLeft") showPhoto(photoIdx + 1);   // RTL: left = next
+    if (e.key === "ArrowRight") showPhoto(photoIdx - 1);
+  });
+  let touchX = null;
+  mImg.addEventListener("touchstart", (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  mImg.addEventListener("touchend", (e) => {
+    if (touchX == null || photos.length < 2) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    touchX = null;
+    if (Math.abs(dx) > 40) showPhoto(photoIdx + (dx > 0 ? 1 : -1));
+  });
 
   function closeItem() {
     if (modal.open) modal.close();
