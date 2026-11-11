@@ -139,7 +139,7 @@
   }
   const baseUrl = () => location.href.split("#")[0];
   document.getElementById("share-site").addEventListener("click", () =>
-    share(baseUrl(), "לזכרו של שוקי — היצירות שבנה"));
+    share(baseUrl(), "לזכרו של שוקי שורץ — היצירות שבנה"));
   document.getElementById("m-share").addEventListener("click", () => {
     if (current) share(baseUrl() + "#" + encodeURIComponent(current.id), current.title);
   });
