@@ -156,6 +156,7 @@ h2 { font-size: clamp(28px, 4vw, 38px); margin: 0; font-weight: 700; }
 .card .badge { position: absolute; top: 12px; inset-inline-start: 12px; }
 .badge-sale { background: var(--yellow); color: var(--ink); }
 .badge-sold { background: var(--ink); color: #fff; }
+.badge-donated { background: var(--green); color: #fff; }
 .empty { color: var(--muted); text-align: center; padding: 40px 0; }
 
 /* Modal */

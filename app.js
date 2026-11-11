@@ -13,10 +13,11 @@
   let filter = "all";
   let current = null;
 
-  const isAvailable = (it) => it.forSale && !it.sold;
+  const isAvailable = (it) => it.forSale && !it.sold && !it.donated;
   const fmtPrice = (n) => Number(n).toLocaleString("he-IL");
 
   function badgeFor(it) {
+    if (it.donated) return '<span class="badge badge-donated">נתרם</span>';
     if (it.sold) return '<span class="badge badge-sold">נמכר</span>';
     if (it.forSale) return '<span class="badge badge-sale">למכירה</span>';
     return "";
@@ -41,7 +42,7 @@
 
   /* ---------- Gallery ---------- */
   function render() {
-    const list = filter === "sale" ? items.filter((it) => it.forSale) : items;
+    const list = filter === "sale" ? items.filter(isAvailable) : items;
     grid.innerHTML = list.map((it) => `
       <div class="card-wrap">
       <button class="card" type="button" data-id="${esc(it.id)}">
@@ -59,7 +60,7 @@
       </div>`).join("");
     empty.hidden = list.length > 0;
     document.querySelector('[data-count="all"]').textContent = `(${items.length})`;
-    document.querySelector('[data-count="sale"]').textContent = `(${items.filter((it) => it.forSale).length})`;
+    document.querySelector('[data-count="sale"]').textContent = `(${items.filter(isAvailable).length})`;
   }
 
   function setFilter(f) {
