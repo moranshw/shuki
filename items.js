@@ -311,7 +311,7 @@ window.ITEMS = [
     image: "images/stranger_things.jpeg",
     forSale: true,
     startPrice: "",
-    sold: false,
+    sold: true,
   },
   {
     id: "garden",
